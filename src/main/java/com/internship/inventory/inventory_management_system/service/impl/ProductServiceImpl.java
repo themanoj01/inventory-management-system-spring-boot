@@ -68,12 +68,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findProductsByName(String productName) {
-        try {
-            return productRepository.findProductsByName(productName);
-        }
-        catch (Exception e) {
-            throw new ProductNotFoundException("Product with name " + productName + " not found.");
-        }
+            List<Product> products =  productRepository.findProductsByName(productName);
+            if (products.isEmpty()) {
+                throw new ProductNotFoundException("Product with name " + productName + " not found.");
+            }
+            return products;
     }
 
 }
